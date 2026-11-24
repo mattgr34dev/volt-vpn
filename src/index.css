@@ -127,11 +127,11 @@ input:focus-visible {
 }
 
 .ambient-orb--two.ambient-orb--electric {
-  width: 480px;
-  height: 480px;
-  bottom: -140px;
-  left: 18%;
-  background: radial-gradient(circle, rgba(200, 255, 89, 0.16) 0%, rgba(8, 125, 250, 0) 72%);
+  width: 460px;
+  height: 460px;
+  top: 18%;
+  right: 26%;
+  background: radial-gradient(circle, rgba(140, 210, 255, 0.14) 0%, rgba(8, 125, 250, 0) 72%);
   animation-delay: -5s;
 }
 
@@ -609,38 +609,62 @@ input:focus-visible {
   margin-top: auto;
 }
 
-/* 3D Shield & Neon Ribbon Scene (matches Figma Motion 01 / Объёмная сцена) */
+/* 3D Shield & Neon Ribbon Scene (Adaptive across all aspect ratios & resolutions) */
 .shield-scene-positioner {
   position: absolute;
-  left: -48px;
+  left: calc(-48px - max(0px, (100vw - 1440px) / 2));
   bottom: -24px;
-  width: 874px;
-  height: 510px;
+  width: clamp(740px, 60.7vw, 940px);
+  aspect-ratio: 874 / 510;
   pointer-events: none;
   z-index: 1;
 }
 
 .shield-scene-frame {
   position: relative;
-  width: 874px;
-  height: 510px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000000 16%,
+      #000000 86%,
+      transparent 100%
+    ),
+    linear-gradient(to right, #000000 0%, #000000 83%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000000 16%,
+      #000000 86%,
+      transparent 100%
+    ),
+    linear-gradient(to right, #000000 0%, #000000 83%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.shield-artwork-parallax {
+  position: absolute;
+  left: -2.5%;
+  top: -43.1%;
+  width: 149%;
+  aspect-ratio: 1280 / 889;
 }
 
 .shield-artwork-float {
-  position: absolute;
-  left: 0;
-  top: -220px;
-  width: 1280px;
-  height: 889px;
+  width: 100%;
+  height: 100%;
 }
 
 .shield-artwork-img {
   display: block;
-  width: 1280px;
-  height: 889px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   user-select: none;
 }
 
@@ -649,29 +673,73 @@ input:focus-visible {
   pointer-events: none;
 }
 
-.shield-fade img {
+.shield-fade-img {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .shield-fade--top {
   left: 0;
   top: 0;
-  width: 874px;
-  height: 72px;
+  width: 100%;
+  height: 15%;
 }
 
 .shield-fade--right {
-  left: 774px;
+  right: 0;
   top: 0;
-  width: 100px;
-  height: 510px;
+  width: 14%;
+  height: 100%;
 }
 
 .shield-fade--bottom {
   left: 0;
-  top: 454px;
-  width: 874px;
-  height: 56px;
+  bottom: 0;
+  width: 100%;
+  height: 12%;
+}
+
+/* Ultrawide & Large Desktops (>= 1560px: Full HD 1920px, 2K 2560px, 4K 3840px) */
+@media (min-width: 1560px) {
+  .shield-scene-positioner {
+    left: -130px;
+    bottom: -28px;
+    width: 980px;
+  }
+
+  .shield-scene-frame {
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000000 16%,
+        #000000 85%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to right,
+        transparent 0%,
+        #000000 16%,
+        #000000 83%,
+        transparent 100%
+      );
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000000 16%,
+        #000000 85%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to right,
+        transparent 0%,
+        #000000 16%,
+        #000000 83%,
+        transparent 100%
+      );
+    mask-composite: intersect;
+  }
 }
 
 /* Floating Status Pill (-4deg) */
@@ -2118,6 +2186,12 @@ input:focus-visible {
     right: 0;
   }
 
+  .shield-scene-positioner {
+    left: -32px;
+    width: clamp(640px, 60vw, 840px);
+    bottom: -20px;
+  }
+
   .glass-bento-row {
     grid-template-columns: 220px minmax(0, 1fr);
     gap: 20px;
@@ -2181,12 +2255,13 @@ input:focus-visible {
   }
 
   .shield-scene-positioner {
-    left: -32px;
-    width: 780px;
+    left: calc(50% - 50vw);
+    width: min(100vw, 920px);
+    bottom: -20px;
   }
 
   .shield-scene-frame {
-    width: 780px;
+    width: 100%;
   }
 
   .hero-glass {
@@ -2269,30 +2344,67 @@ input:focus-visible {
     line-height: 23px;
   }
 
-  /* Concept 01 Mobile Visual Stage */
+  /* Concept 01 Mobile & Phablet Visual Stage (full-bleed adaptive 3D scene) */
   .electric-stage {
     height: auto;
+    min-height: clamp(460px, 122vw, 560px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    padding-top: 12px;
+    justify-content: flex-end;
+    gap: 22px;
+    padding-top: 72px;
   }
 
   .shield-scene-positioner {
     position: absolute;
-    left: 50%;
-    top: -36px;
-    bottom: auto;
-    width: 874px;
-    height: 510px;
-    transform: translateX(-50%) scale(0.58);
-    transform-origin: top center;
-    opacity: 0.94;
+    left: calc(50% - 50vw);
+    top: -24px;
+    bottom: -20px;
+    width: 100vw;
+    height: auto;
+    aspect-ratio: unset;
+    transform: none;
+    opacity: 0.98;
   }
 
   .shield-scene-frame {
-    width: 874px;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000000 14%,
+        #000000 84%,
+        transparent 100%
+      ),
+      linear-gradient(to right, #000000 0%, #000000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000000 14%,
+        #000000 84%,
+        transparent 100%
+      ),
+      linear-gradient(to right, #000000 0%, #000000 90%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  .shield-artwork-parallax {
+    inset: -5%;
+    left: -6%;
+    top: -6%;
+    width: 112%;
+    height: 112%;
+    aspect-ratio: unset;
+  }
+
+  .shield-artwork-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 33% 34%;
   }
 
   .floating-status-anchor {

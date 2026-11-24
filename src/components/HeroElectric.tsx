@@ -19,6 +19,7 @@ export const HeroElectric: React.FC = () => {
   const smoothX = useSpring(mouseX, springCfg);
   const smoothY = useSpring(mouseY, springCfg);
 
+  // Parallax runs inside the masked container so outer edges never shift or show seams
   const shieldX = useTransform(smoothX, [-0.5, 0.5], [-14, 14]);
   const shieldY = useTransform(smoothY, [-0.5, 0.5], [-10, 10]);
 
@@ -107,52 +108,56 @@ export const HeroElectric: React.FC = () => {
 
       {/* Interactive 3D Shield + Floating Status + Promo Speedometer Stage */}
       <div className="electric-stage">
-        {/* Motion 01 / Объёмная сцена (3D Shield & Neon Ribbon) */}
+        {/* Motion 01 / Объёмная сцена (Adaptive across all aspect ratios & screen sizes) */}
         <div className="shield-scene-positioner">
           <motion.div
             className="shield-scene-frame"
-            style={{
-              x: prefersReducedMotion ? 0 : shieldX,
-              y: prefersReducedMotion ? 0 : shieldY,
-            }}
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              className="shield-artwork-float"
-              animate={
-                prefersReducedMotion
-                  ? undefined
-                  : {
-                      y: [0, -10, 0],
-                      scale: [1, 1.014, 1],
-                    }
-              }
-              transition={{
-                duration: 6.4,
-                repeat: Infinity,
-                ease: 'easeInOut',
+              className="shield-artwork-parallax"
+              style={{
+                x: prefersReducedMotion ? 0 : shieldX,
+                y: prefersReducedMotion ? 0 : shieldY,
               }}
             >
-              <img
-                src={FIGMA_ASSETS.shieldArtwork}
-                alt=""
-                width={1280}
-                height={889}
-                className="shield-artwork-img"
-              />
+              <motion.div
+                className="shield-artwork-float"
+                animate={
+                  prefersReducedMotion
+                    ? undefined
+                    : {
+                        y: [0, -10, 0],
+                        scale: [1.02, 1.038, 1.02],
+                      }
+                }
+                transition={{
+                  duration: 6.4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                <img
+                  src={FIGMA_ASSETS.shieldArtwork}
+                  alt=""
+                  width={1536}
+                  height={1024}
+                  className="shield-artwork-img"
+                />
+              </motion.div>
             </motion.div>
 
-            {/* Edge Fades from Figma */}
+            {/* Fluid Edge Fades from Figma */}
             <div className="shield-fade shield-fade--top" aria-hidden="true">
-              <img src={FIGMA_ASSETS.fadeTop} alt="" width={874} height={72} />
+              <img src={FIGMA_ASSETS.fadeTop} alt="" className="shield-fade-img" />
             </div>
             <div className="shield-fade shield-fade--right" aria-hidden="true">
-              <img src={FIGMA_ASSETS.fadeRight} alt="" width={100} height={510} />
+              <img src={FIGMA_ASSETS.fadeRight} alt="" className="shield-fade-img" />
             </div>
             <div className="shield-fade shield-fade--bottom" aria-hidden="true">
-              <img src={FIGMA_ASSETS.fadeBottom} alt="" width={874} height={56} />
+              <img src={FIGMA_ASSETS.fadeBottom} alt="" className="shield-fade-img" />
             </div>
           </motion.div>
         </div>
