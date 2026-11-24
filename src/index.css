@@ -457,11 +457,15 @@ input:focus-visible {
 }
 
 .hero-column {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   width: 100%;
 }
 
 .checkout-column {
+  position: relative;
+  z-index: 5;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -860,12 +864,13 @@ input:focus-visible {
 }
 
 .glass-metric-wrap {
-  width: 236px;
+  width: 100%;
+  min-width: 0;
 }
 
 .glass-metric-card {
   position: relative;
-  width: 236px;
+  width: 100%;
   height: 404px;
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.6);
@@ -914,7 +919,7 @@ input:focus-visible {
 
 .liquid-wave-stage {
   position: relative;
-  width: 236px;
+  width: 100%;
   height: 145px;
   margin-top: auto;
   flex-shrink: 0;
@@ -934,20 +939,21 @@ input:focus-visible {
 .liquid-wave-asset-holder {
   position: absolute;
   left: -1px;
+  right: -1px;
   bottom: -2px;
-  width: 236px;
+  width: calc(100% + 2px);
   height: 145px;
 }
 
 .liquid-wave-img {
   display: block;
-  width: 236px;
-  height: 145px;
+  width: 100%;
+  height: 100%;
 }
 
 .glass-dashboard-wrap {
   width: 100%;
-  max-width: 512px;
+  min-width: 0;
 }
 
 /* =========================================================
@@ -962,7 +968,6 @@ input:focus-visible {
 
 .speedtest-tilt-wrap--dashboard {
   width: 100%;
-  max-width: 512px;
   border-radius: 28px;
 }
 
@@ -2159,7 +2164,7 @@ input:focus-visible {
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN: LAPTOP (<= 1360px)
+   RESPONSIVE DESIGN: LAPTOP 2-COLUMN (<= 1360px)
    ========================================================= */
 
 @media (max-width: 1360px) {
@@ -2169,17 +2174,21 @@ input:focus-visible {
   }
 
   .offer-checkout-grid {
-    grid-template-columns: minmax(0, 1fr) 450px;
-    gap: 36px;
+    grid-template-columns: minmax(0, 1fr) 440px;
+    gap: 32px;
     min-height: 700px;
   }
 
   .checkout-card-shell {
-    width: 450px;
+    width: 440px;
   }
 
   .checkout-card {
     padding: 26px 26px;
+  }
+
+  .floating-status-anchor {
+    left: 0;
   }
 
   .promo-speedtest-anchor {
@@ -2188,18 +2197,13 @@ input:focus-visible {
 
   .shield-scene-positioner {
     left: -32px;
-    width: clamp(640px, 60vw, 840px);
+    width: min(60vw, calc(100% + 40px));
     bottom: -20px;
   }
 
   .glass-bento-row {
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: minmax(200px, 31%) minmax(0, 1fr);
     gap: 20px;
-  }
-
-  .glass-metric-wrap,
-  .glass-metric-card {
-    width: 220px;
   }
 
   .info-cards-grid {
@@ -2213,14 +2217,17 @@ input:focus-visible {
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN: TABLET & COMPACT LAPTOP (<= 1080px)
+   RESPONSIVE DESIGN: TABLET & COMPACT LAPTOP (<= 1220px)
+   Unified container — all sections align 100% flush left & right
    ========================================================= */
 
-@media (max-width: 1080px) {
+@media (max-width: 1220px) {
   .site-header {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12px;
+    max-width: 820px;
+    margin: 0 auto;
   }
 
   .concept-switcher {
@@ -2229,20 +2236,20 @@ input:focus-visible {
   }
 
   .offer-checkout-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
     min-height: auto;
-    max-width: 760px;
+    max-width: 820px;
     margin: 0 auto;
   }
 
   .checkout-column {
-    justify-content: center;
+    justify-content: stretch;
   }
 
   .checkout-card-shell {
     width: 100%;
-    max-width: 560px;
+    max-width: none;
   }
 
   .hero-electric {
@@ -2251,12 +2258,20 @@ input:focus-visible {
   }
 
   .electric-stage {
-    height: 450px;
+    height: 440px;
+  }
+
+  .floating-status-anchor {
+    left: 0;
+  }
+
+  .promo-speedtest-anchor {
+    right: 0;
   }
 
   .shield-scene-positioner {
     left: calc(50% - 50vw);
-    width: min(100vw, 920px);
+    width: min(100vw, 940px);
     bottom: -20px;
   }
 
@@ -2267,50 +2282,59 @@ input:focus-visible {
   .hero-glass {
     min-height: auto;
     padding-bottom: 0;
-    gap: 32px;
+    gap: 28px;
   }
 
   .glass-bento-row {
-    grid-template-columns: 236px minmax(0, 1fr);
-    gap: 24px;
+    grid-template-columns: minmax(210px, 32%) minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
   }
 
-  .glass-metric-wrap,
-  .glass-metric-card {
-    width: 236px;
+  .info-page {
+    max-width: 820px;
+    margin: 0 auto;
+    gap: 36px;
   }
 
   .info-cards-grid {
-    grid-template-columns: 1fr;
-    max-width: 720px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
 
   .info-card {
     min-height: auto;
-    gap: 36px;
+    gap: 32px;
+  }
+
+  .site-footer {
+    max-width: 820px;
+    margin: 0 auto;
   }
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN: MOBILE & PHABLET (<= 740px)
+   RESPONSIVE DESIGN: MOBILE & PHABLET (<= 660px)
+   Every card stretches 100% flush to container edges
    ========================================================= */
 
-@media (max-width: 740px) {
+@media (max-width: 660px) {
   .volt-container,
   .volt-container--info {
     padding: 20px 16px 28px;
-    gap: 28px;
+    gap: 24px;
   }
 
   .site-header {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    max-width: none;
   }
 
   .floating-nav {
     width: 100%;
-    max-width: 390px;
+    max-width: 420px;
     justify-content: space-between;
     padding: 6px 6px 6px 10px;
     gap: 6px;
@@ -2324,18 +2348,24 @@ input:focus-visible {
     padding: 10px 13px;
   }
 
+  .offer-checkout-grid {
+    gap: 24px;
+    max-width: none;
+  }
+
   .editorial-offer,
   .product-headline {
     gap: 14px;
+    max-width: none;
   }
 
   .display-headline--electric {
-    font-size: clamp(34px, 9.6vw, 46px);
+    font-size: clamp(34px, 9.4vw, 48px);
     line-height: 1.1;
   }
 
   .display-headline--glass {
-    font-size: clamp(32px, 8.8vw, 42px);
+    font-size: clamp(32px, 8.6vw, 44px);
     line-height: 1.12;
   }
 
@@ -2344,16 +2374,16 @@ input:focus-visible {
     line-height: 23px;
   }
 
-  /* Concept 01 Mobile & Phablet Visual Stage (full-bleed adaptive 3D scene) */
+  /* Concept 01 Mobile & Phablet Visual Stage */
   .electric-stage {
     height: auto;
-    min-height: clamp(460px, 122vw, 560px);
+    min-height: clamp(460px, 118vw, 560px);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: flex-end;
     gap: 22px;
-    padding-top: 72px;
+    padding-top: 68px;
   }
 
   .shield-scene-positioner {
@@ -2420,15 +2450,11 @@ input:focus-visible {
     right: auto;
     bottom: auto;
     width: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   .promo-speedtest-rotator {
     transform: rotate(0deg);
     width: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   .promo-speedtest-rotator:hover {
@@ -2438,31 +2464,35 @@ input:focus-visible {
   .speedtest-tilt-wrap--promo,
   .speedtest-card--promo {
     width: 100%;
-    max-width: 420px;
+    max-width: none;
   }
 
-  /* Concept 02 Mobile Bento Stack */
+  .speedtest-btn--promo {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* Concept 02 Mobile Bento Stack — 100% full width */
   .glass-bento-row {
     grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
+    gap: 16px;
+    width: 100%;
   }
 
   .glass-metric-wrap {
     width: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   .glass-metric-card {
     width: 100%;
-    max-width: 420px;
-    height: 200px;
+    max-width: none;
+    height: clamp(188px, 44vw, 220px);
     flex-direction: row;
     align-items: stretch;
   }
 
   .glass-metric-top {
-    padding: 22px 0 22px 22px;
+    padding: 22px 0 22px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2470,38 +2500,51 @@ input:focus-visible {
   }
 
   .glass-metric-number {
-    font-size: 76px;
-    line-height: 82px;
+    font-size: clamp(72px, 18vw, 88px);
+    line-height: 1.05;
     letter-spacing: -4.5px;
   }
 
   .glass-metric-caption {
-    font-size: 15px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 21px;
   }
 
   .liquid-wave-stage {
     position: absolute;
     right: -1px;
     bottom: -2px;
-    width: 236px;
-    height: 145px;
-    opacity: 0.94;
+    width: clamp(236px, 66%, 420px);
+    height: 78%;
+    opacity: 0.95;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000000 34%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000000 34%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000000 32%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000000 32%);
   }
 
-  .glass-dashboard-wrap {
+  .liquid-wave-asset-holder {
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    min-width: 0;
-    max-width: 420px;
-    margin: 0 auto;
+    height: 100%;
+  }
+
+  .glass-dashboard-wrap,
+  .speedtest-tilt-wrap--dashboard,
+  .speedtest-card--dashboard {
+    width: 100%;
+    max-width: none;
   }
 
   .speedtest-card--dashboard {
     min-height: auto;
-    padding: 22px 18px;
+    padding: 24px 20px;
+  }
+
+  .speedtest-btn--dashboard {
+    width: 100%;
+    max-width: 340px;
   }
 
   /* Checkout Card on Mobile */
@@ -2531,7 +2574,8 @@ input:focus-visible {
 
   /* Information Page on Mobile */
   .info-page {
-    gap: 28px;
+    gap: 24px;
+    max-width: none;
   }
 
   .info-card {
@@ -2565,6 +2609,7 @@ input:focus-visible {
     align-items: flex-start;
     gap: 12px;
     padding-top: 8px;
+    max-width: none;
   }
 
   .footer-links {
@@ -2577,7 +2622,7 @@ input:focus-visible {
   }
 }
 
-/* Ultra-small mobile (320px - 360px) */
+/* Ultra-small mobile (320px - 365px) */
 @media (max-width: 365px) {
   .brand-wordmark {
     font-size: 18px;
@@ -2601,10 +2646,11 @@ input:focus-visible {
 
   .glass-metric-top {
     z-index: 3;
+    padding-left: 18px;
   }
 
   .liquid-wave-stage {
-    opacity: 0.45;
+    opacity: 0.5;
   }
 }
 
